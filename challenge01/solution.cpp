@@ -13,6 +13,8 @@ using namespace std;
 
 vector<int> rotateArray(int n, int r, char d, const vector<int>& array)
 {
+	r %= n; //reduce the amount of rotations (6 rotations left is the same a 1 rotation left):
+
 	vector<int> rotatedArray(n);
 
 	//left shift: rotates left by r positions
