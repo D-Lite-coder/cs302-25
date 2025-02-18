@@ -1,3 +1,9 @@
+/* Program Name: dfs tester
+ * Student Name: David Carpenter
+ * Net ID: dcarpe23
+ * Student ID: 000722316
+ * Program Description: tests a given graph to see if a specified path exists using dfs method*/
+
 #include <iostream>
 #include <vector>
 #include <unordered_set>
@@ -16,8 +22,8 @@ struct Node {
 
 bool dfs(Node* src, Node* dst, unordered_set<string>& visited) {
 
-	if (src == dst) return true;
-	if (visited.count(src->name)) return false;
+	if (src == dst) return true; //base case: source and destination are the same
+	if (visited.count(src->name)) return false; //base case: node has already been visited
 
 	visited.insert(src->name);
 	for (Node* neighbor : src->edges)  {
@@ -48,9 +54,11 @@ int main() {
 		  string src, dst;
 		  cin >> src >> dst;
 
+		  //adds nodes if not already in map
 		  if(nodes.find(src) == nodes.end()) nodes[src] = new Node{src};
 		  if(nodes.find(dst) == nodes.end()) nodes[dst] = new Node{dst};
 
+		  //defines dst as an edge of src
 		  nodes[src]->edges.push_back(nodes[dst]);
 
 	  }
@@ -65,6 +73,7 @@ int main() {
 		  cin >> src >> dst;
 		  unordered_set<string> visited;
 
+		  //searchs for a path from src to dst
 		  if(dfs(nodes[src], nodes[dst], visited)) {
 
 			cout << "In Graph " << graphCount << " there is a path from " << src << " to " << dst << "\n";	
@@ -80,6 +89,7 @@ int main() {
 		
 	  cin.ignore();
 
+	  //clears nodes for next graph
 	  for (unordered_map<string, Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it) {
 		              
 		  delete it->second;
