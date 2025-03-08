@@ -1,4 +1,8 @@
-//
+/* Program Name: prims algorithm
+ * Student Name: David Carpenter
+ * Net ID: dcarpe23
+ * Student ID: 000722316
+ * Program Description: a given graph will output a MST using prims algorithm*/
 
 #include <iostream>
 #include <vector>
