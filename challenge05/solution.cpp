@@ -36,7 +36,9 @@ void primAlgo(int n, vector<vector<int>> &graph) {
     int totalWeight = 0;
     vector<pair<int, int>> mstEdges; // To store edges in MST (parent, vertex)
   
-    while (mstEdges.size() < n - 1) {
+	int edgeSize = mstEdges.size();
+
+    while (edgeSize < n - 1) {
       
         Edge e = minHeap.top();
         minHeap.pop();
@@ -54,7 +56,13 @@ void primAlgo(int n, vector<vector<int>> &graph) {
 
         // If the vertex has a parent, add the edge (parent, vertex) to MST edges
         if (parent != -1) {
-            mstEdges.push_back(make_pair(parent, u));
+
+             if (parent > u) {
+                mstEdges.push_back(make_pair(u, parent));
+            } else {
+                mstEdges.push_back(make_pair(parent, u));
+            }
+
         }
 
         // Explore all adjacent vertices (neighbors of the current vertex)
@@ -65,6 +73,8 @@ void primAlgo(int n, vector<vector<int>> &graph) {
                 minHeap.push({graph[u][v], v, u});
             }
         }
+
+		edgeSize = mstEdges.size();
     }
     
     // Output the total weight of the MST
@@ -78,18 +88,23 @@ void primAlgo(int n, vector<vector<int>> &graph) {
 
     sort(edges.begin(), edges.end());
 
-    for (size_t i = 0; i < edges.size(); ++i) {
+
+	for (size_t i = 0; i < edges.size(); ++i) {
+
         cout << edges[i] << "\n";
     }
 
-    cout << "\n";
 }
 
 int main() {
     int n;
+	bool skipOne = true;
 
     while (cin >> n) {
       
+		if(skipOne == true) skipOne = false;
+		else cout << "\n";
+
         // Create an adjacency matrix to store the graph
         vector<vector<int>> graph(n, vector<int>(n));
         
@@ -100,6 +115,7 @@ int main() {
         }
 
         primAlgo(n, graph);
+
     }
 
     return 0;
